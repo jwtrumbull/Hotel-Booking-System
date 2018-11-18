@@ -1,0 +1,9 @@
+	Jeff	30	1520	Aria
+	Matthew	25	1209	Four Seasons
+	Jordan	23	1126	Orleans
+	Mike	40	1220	Bellagio	
+	John	50	1212	Mandalay
+	Karin	39	1845	Caesars
+	Ashley	24	1627	Motel 6
+	Kim	30	Venetian
+	Tom	28	Palazzo

@@ -1,0 +1,9 @@
+Aria	1	1	1
+Four Seasons	1	1	1
+Orleans	1	1	0
+Bellagio	1	1	1
+Mandalay	1	1	1
+Caesars	1	1	1
+Motel 6	0	0	1
+Venetian	1	1	1
+Palazzo	1	1	0
