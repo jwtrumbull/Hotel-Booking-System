@@ -4,6 +4,6 @@
 	Mike	40	1220	Bellagio	
 	John	50	1212	Mandalay
 	Karin	39	1845	Caesars
-	Ashley	24	1627	Motel 6
-	Kim	30	Venetian
-	Tom	28	Palazzo
+	Ashley	24	127	Motel 6
+	Kim	30	1120	Venetian
+	Tom	28	2020	Palazzo
