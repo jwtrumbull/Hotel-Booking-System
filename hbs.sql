@@ -11,7 +11,7 @@ CREATE TABLE ROOM
  bedNumber INT,
  maxOccupancy INT,
  price INT,
- primary key (roomNumber)
+ primary key (roomNumber, hotelName)
 
 );
 DROP TABLE IF EXISTS CUSTOMER;
@@ -43,6 +43,7 @@ CREATE TABLE RESERVATION
  hotelName VARCHAR(30),
  checkIn DATE,
  checkOut DATE,
+ PRIMARY KEY(cID),
  FOREIGN KEY(cID) REFERENCES CUSTOMER(cID)
 ); 
 
@@ -50,11 +51,11 @@ DROP TABLE IF EXISTS RATING;
 CREATE TABLE RATING
 (
  cID INT,
- rName VARCHAR(30),
+ name VARCHAR(30),
  hotelName VARCHAR(30),
  rDate DATE,
  stars INT,
- PRIMARY KEY (rName),
+ PRIMARY KEY (cID),
  FOREIGN KEY(cID) REFERENCES CUSTOMER(cID)
 ); 
 
