@@ -63,7 +63,9 @@ public class SearchPanel extends JPanel {
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		
 		JLabel pr = new JLabel("Price");
+
 		String[] bpri = { "","200","400","600","800" };
+
 		JComboBox prOption = new JComboBox(bpri);
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -77,6 +79,7 @@ public class SearchPanel extends JPanel {
 				String str = "";
 				try {
 					// query to get selected hotel
+
 					if (prOption.getSelectedIndex()==0) {
 						stmt = conn.createStatement();
 						rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
@@ -102,6 +105,7 @@ public class SearchPanel extends JPanel {
 					// get results
 
 					
+
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

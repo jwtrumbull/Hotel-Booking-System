@@ -21,6 +21,7 @@ import javax.swing.*;
 
 public class HotelFrame extends JPanel {
 
+
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/hbs";
@@ -32,8 +33,9 @@ public class HotelFrame extends JPanel {
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	private static ResultSet rs = null;
-	
+
 	private String selectedHotel;
+
 
 	private JTextArea result = new JTextArea();
 
@@ -48,7 +50,9 @@ public class HotelFrame extends JPanel {
 		// create hotel grid
 		this.setName("Hotel Reservation System");
 		this.setSize(1500, 1500);
+
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
 		result.setSize(400, 600);
 
 		JPanel hotelGrid = new JPanel();
@@ -56,6 +60,7 @@ public class HotelFrame extends JPanel {
 		hotelGrid.setLayout(experiment);
 
 		// buttons for all the hotels - clickable
+
 
 		JButton aria = this.addHotel(
 				"https://66.media.tumblr.com/b2da660233bd9c60da90c969fac31721/tumblr_pidl31Rn6Y1qg9zhfo7_250.png",
@@ -107,7 +112,9 @@ public class HotelFrame extends JPanel {
 			}
 		});
 
+
 		// result panel for button click for customer info
+
 		result.setText("Result");
 		JPanel customerName = new JPanel();
 		JButton enterName = new JButton("Enter");
@@ -121,6 +128,7 @@ public class HotelFrame extends JPanel {
 				// QUERY for getting customer based on cID
 				try {
 					stmt = conn.createStatement();
+
 					rs = stmt.executeQuery(
 							"select cID, name, roomNumber, hotelName from customer where cID=" + userName.getText());
 
@@ -142,10 +150,14 @@ public class HotelFrame extends JPanel {
 						result.setText(str);
 					}
 
+
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
+				userName.setText("Customer ID");
+
 
 			}
 
@@ -158,7 +170,9 @@ public class HotelFrame extends JPanel {
 
 		customerArea.add(customerName);
 
+
 		// book a room
+
 		JButton book = new JButton("Book a Room");
 		book.addActionListener(new ActionListener() {
 
@@ -175,7 +189,9 @@ public class HotelFrame extends JPanel {
 
 		});
 
+
 		// Allows user to sign up for customer profile
+
 		JButton signUp = new JButton("Sign Up");
 		signUp.addActionListener(new ActionListener() {
 
@@ -190,6 +206,7 @@ public class HotelFrame extends JPanel {
 			}
 
 		});
+
 		
 		JPanel hotelInformation = new JPanel();
 		hotelInformation.setLayout(new BoxLayout(hotelInformation, BoxLayout.Y_AXIS) );
@@ -259,10 +276,13 @@ public class HotelFrame extends JPanel {
 		
 		hotelInformation.add(checkRooms);
 
+
 		JPanel rightSide = new JPanel();
 		rightSide.setLayout(new BoxLayout(rightSide, BoxLayout.Y_AXIS));
 		rightSide.add(customerArea);
+
 		rightSide.add(hotelInformation);
+
 		rightSide.add(result);
 		rightSide.add(book);
 		rightSide.add(signUp);
@@ -270,6 +290,7 @@ public class HotelFrame extends JPanel {
 		SearchPanel sp = new SearchPanel();
 
 		// adds elements to JFrame (class itself)
+
 		this.add(hotelGrid);
 		this.add(rp);
 		this.add(sp);
@@ -278,6 +299,7 @@ public class HotelFrame extends JPanel {
 
 		
 		
+
 	}
 
 	public JButton addHotel(String picURL, String name) throws MalformedURLException, IOException {
@@ -306,7 +328,9 @@ public class HotelFrame extends JPanel {
 								+ rs.getBoolean("elevators") + "\nPool=" + rs.getBoolean("pool") + "\nFree Breakfast="
 								+ rs.getBoolean("freeBreakfast"));
 						result.setText(str);
+
 						selectedHotel = name; 
+
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -321,6 +345,7 @@ public class HotelFrame extends JPanel {
 
 	public static void main(String[] args)
 			throws MalformedURLException, IOException, SQLException, ClassNotFoundException {
+
 		JFrame jf = new JFrame(); 
 		HotelFrame p = new HotelFrame();
 		jf.add(p);
@@ -328,6 +353,7 @@ public class HotelFrame extends JPanel {
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.pack();
 		jf.setVisible(true);
+
 	}
 
 }
