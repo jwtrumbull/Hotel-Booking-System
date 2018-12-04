@@ -13,6 +13,7 @@ import javax.swing.*;
 
 /**
  * frame that allows users to book hotel stay
+ * 
  * @author anhth
  *
  */
@@ -50,43 +51,52 @@ public class ReservationFrame extends JFrame {
 		// STEP 2: Open a connection
 		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-		JTextField customerEnter = new JTextField(""); //name
-		JPanel customerName = addOptions("Name", customerEnter);
-		
-		JTextField ageenter = new JTextField(""); //age
-		JPanel customerAge = addOptions("Customer Age", ageenter);
-		
-		JTextField cidenter= new JTextField(""); //cID
+		// fields for customer info entry
+		JTextField cidenter = new JTextField(""); // cID
 		JPanel customerCID = addOptions("Customer ID", cidenter);
-		
-		JTextField hotelenter= new JTextField(""); //hotel name
+
+		JTextField hotelenter = new JTextField(""); // hotel name
 		JPanel hotelChoice = addOptions("Hotel Choice", hotelenter);
-		
+
+		JTextField roomEnter = new JTextField(""); // hotel name
+		JPanel roomChoice = addOptions("Room Choice", roomEnter);
+
 		JTextField checkenter = new JTextField(""); // check In
 		JPanel checkin = addOptions("Check In Date", checkenter);
-		
-		JTextField checkoutenter = new JTextField(""); //check Out
+
+		JTextField checkoutenter = new JTextField(""); // check Out
 		JPanel checkout = addOptions("Check Out Date", checkoutenter);
-		
-		JTextArea rslt = new JTextArea(30,20);
+
+		JTextArea rslt = new JTextArea(30, 20);
 		rslt.setText("Booking Now");
 
+		// creates reservation
 		JButton submit = new JButton("Enter");
 		submit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String str =  "";
+				String str = "";
 				try {
 					// query to get selected hotel
+
 					stmt = conn.createStatement();
-					stmt.executeUpdate("INSERT into RESERVATION VALUES(" + cidenter.getText() +", '" + hotelenter.getText() + "' , '" + checkenter.getText() + "' , '" + checkoutenter.getText() +"')");
-					
-					//prints reservation information
+					stmt.executeUpdate("UPDATE Room SET reserved=true WHERE roomNumber=" + roomEnter.getText()
+							+ " AND hotelName='" + hotelenter.getText() + "'");
+
 					stmt = conn.createStatement();
-					rs = stmt.executeQuery("select cID, hotelName, checkIn, checkOut from RESERVATION where cID=" + (cidenter.getText()));
+					stmt.executeUpdate(
+							"INSERT into RESERVATION VALUES (" + cidenter.getText() + ", '" + hotelenter.getText()
+									+ "' , '" + checkenter.getText() + "' , '" + checkoutenter.getText() + "')");
+
+					// prints reservation information
+					stmt = conn.createStatement();
+					rs = stmt.executeQuery("select cID, hotelName, checkIn, checkOut from RESERVATION where cID="
+							+ (cidenter.getText()));
 					while (rs.next()) {
-						str = str + ("Customer ID=" + rs.getString("cID") + "\nHotel Name=" + rs.getString("hotelName") + "\nCheck In Date=" + rs.getString("checkIn")+ "\nCheck Out Date=" + rs.getInt("checkOut")+ "\n------------\n");
+						str = str + ("Customer ID=" + rs.getString("cID") + "\nHotel Name=" + rs.getString("hotelName")
+								+ "\nCheck In Date=" + rs.getString("checkIn") + "\nCheck Out Date="
+								+ rs.getInt("checkOut") + "\n------------\n");
 						rslt.setText(str + "Reservation Complete");
 					}
 				} catch (SQLException e) {
@@ -97,10 +107,9 @@ public class ReservationFrame extends JFrame {
 
 		});
 
-		this.add(customerName);
-		this.add(customerAge);
 		this.add(customerCID);
 		this.add(hotelChoice);
+		this.add(roomChoice);
 		this.add(checkin);
 		this.add(checkout);
 		this.add(submit);

@@ -4,6 +4,7 @@ import java.sql.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,6 @@ import javax.swing.*;
 
 public class HotelFrame extends JPanel {
 
-
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/hbs";
@@ -36,7 +36,6 @@ public class HotelFrame extends JPanel {
 
 	private String selectedHotel;
 
-
 	private JTextArea result = new JTextArea();
 
 	public HotelFrame() throws MalformedURLException, IOException, SQLException, ClassNotFoundException {
@@ -50,9 +49,7 @@ public class HotelFrame extends JPanel {
 		// create hotel grid
 		this.setName("Hotel Reservation System");
 		this.setSize(1500, 1500);
-
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-
 		result.setSize(400, 600);
 
 		JPanel hotelGrid = new JPanel();
@@ -60,7 +57,6 @@ public class HotelFrame extends JPanel {
 		hotelGrid.setLayout(experiment);
 
 		// buttons for all the hotels - clickable
-
 
 		JButton aria = this.addHotel(
 				"https://66.media.tumblr.com/b2da660233bd9c60da90c969fac31721/tumblr_pidl31Rn6Y1qg9zhfo7_250.png",
@@ -112,9 +108,7 @@ public class HotelFrame extends JPanel {
 			}
 		});
 
-
 		// result panel for button click for customer info
-
 		result.setText("Result");
 		JPanel customerName = new JPanel();
 		JButton enterName = new JButton("Enter");
@@ -128,7 +122,6 @@ public class HotelFrame extends JPanel {
 				// QUERY for getting customer based on cID
 				try {
 					stmt = conn.createStatement();
-
 					rs = stmt.executeQuery(
 							"select cID, name, roomNumber, hotelName from customer where cID=" + userName.getText());
 
@@ -150,14 +143,10 @@ public class HotelFrame extends JPanel {
 						result.setText(str);
 					}
 
-
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
-				userName.setText("Customer ID");
-
 
 			}
 
@@ -170,9 +159,7 @@ public class HotelFrame extends JPanel {
 
 		customerArea.add(customerName);
 
-
 		// book a room
-
 		JButton book = new JButton("Book a Room");
 		book.addActionListener(new ActionListener() {
 
@@ -189,9 +176,7 @@ public class HotelFrame extends JPanel {
 
 		});
 
-
 		// Allows user to sign up for customer profile
-
 		JButton signUp = new JButton("Sign Up");
 		signUp.addActionListener(new ActionListener() {
 
@@ -207,32 +192,32 @@ public class HotelFrame extends JPanel {
 
 		});
 
-		
+		// panel for hotel information
 		JPanel hotelInformation = new JPanel();
-		hotelInformation.setLayout(new BoxLayout(hotelInformation, BoxLayout.Y_AXIS) );
-		
+		hotelInformation.setLayout(new BoxLayout(hotelInformation, BoxLayout.Y_AXIS));
 
+		// checks availability of room (populates buttons when hotel has rooms)
 		JButton checkRooms = new JButton("Check Availability");
 		checkRooms.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String str = "";
-				
-				if (hotelInformation.getComponentCount()>1) {
+
+				if (hotelInformation.getComponentCount() > 1) {
 					hotelInformation.remove(1);
 				}
-				
+
 				result.setText("");
 
 				try {
 					stmt = conn.createStatement();
 					rs = stmt.executeQuery(
-							"select roomNumber from room where hotelName='" + selectedHotel+  "' AND reserved = 0");
+							"select roomNumber from room where hotelName='" + selectedHotel + "' AND reserved = 0");
 
 					// get results
 					while (rs.next()) {
-						str = (selectedHotel +": " + rs.getInt("roomNumber"));
-						int roomOption = rs.getInt("roomNumber"); 
-						JButton hotelOption = new JButton(str); 
+						str = (selectedHotel + ": " + rs.getInt("roomNumber"));
+						int roomOption = rs.getInt("roomNumber");
+						JButton hotelOption = new JButton(str);
 						hotelOption.addActionListener(new ActionListener() {
 
 							@Override
@@ -240,22 +225,22 @@ public class HotelFrame extends JPanel {
 								String str2 = "";
 								try {
 									stmt = conn.createStatement();
-									rs = stmt.executeQuery(
-											"select price from Room where hotelName = '" + selectedHotel + "' AND roomNumber =" + roomOption);
+									rs = stmt.executeQuery("select price from Room where hotelName = '" + selectedHotel
+											+ "' AND roomNumber =" + roomOption);
 									while (rs.next()) {
-										str2 = str2 + ("Room Number=" + roomOption + "\nPrice="
-												+ rs.getInt("price") );
+										str2 = str2 + ("Room Number=" + roomOption + "\nPrice=" + rs.getInt("price"));
 										result.setText(str2);
 									}
 								} catch (SQLException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								
-								
+								if (hotelInformation.getComponentCount() > 1) {
+									hotelInformation.remove(1);
+								}
+
 							}
-							
-							
+
 						});
 						hotelInformation.add(hotelOption);
 						result.setText("Results");
@@ -264,44 +249,57 @@ public class HotelFrame extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				if(result.getText().equals("")) {
+
+				if (result.getText().equals("")) {
 					result.setText("There are no available rooms at this time");
 				}
 
 			}
 		});
-		
-		RatingPanel rp = new RatingPanel(); 
-		
+
+		RatingPanel rp = new RatingPanel();
+
 		hotelInformation.add(checkRooms);
 
+		JPanel rs = new JPanel();
+		rs.setLayout(new BorderLayout());
 
 		JPanel rightSide = new JPanel();
 		rightSide.setLayout(new BoxLayout(rightSide, BoxLayout.Y_AXIS));
+		rightSide.setAlignmentX(Component.LEFT_ALIGNMENT);
 		rightSide.add(customerArea);
-
 		rightSide.add(hotelInformation);
-
 		rightSide.add(result);
-		rightSide.add(book);
-		rightSide.add(signUp);
+
+		JPanel booking = new JPanel();
+		booking.add(book);
+		booking.add(signUp);
+
+		rs.add(new AdminPanel(), BorderLayout.NORTH);
+		rs.add(rightSide, BorderLayout.CENTER);
+		rs.add(booking, BorderLayout.SOUTH);
 
 		SearchPanel sp = new SearchPanel();
 
 		// adds elements to JFrame (class itself)
-
 		this.add(hotelGrid);
-		this.add(rp);
 		this.add(sp);
-		this.add(rightSide);
-		
-
-		
-		
+		this.add(rp);
+		this.add(rs);
 
 	}
 
+	/**
+	 * add hotel buttons to the hotel grid
+	 * 
+	 * @param picURL
+	 *            url of photo
+	 * @param name
+	 *            name of hotel
+	 * @return button with image/info of hotel
+	 * @throws MalformedURLException
+	 * @throws IOException
+	 */
 	public JButton addHotel(String picURL, String name) throws MalformedURLException, IOException {
 		BufferedImage hotelimg = ImageIO.read(new URL(picURL));
 		JButton hotel = new JButton();
@@ -328,9 +326,7 @@ public class HotelFrame extends JPanel {
 								+ rs.getBoolean("elevators") + "\nPool=" + rs.getBoolean("pool") + "\nFree Breakfast="
 								+ rs.getBoolean("freeBreakfast"));
 						result.setText(str);
-
-						selectedHotel = name; 
-
+						selectedHotel = name;
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -345,7 +341,6 @@ public class HotelFrame extends JPanel {
 
 	public static void main(String[] args)
 			throws MalformedURLException, IOException, SQLException, ClassNotFoundException {
-
 		JFrame jf = new JFrame(); 
 		HotelFrame p = new HotelFrame();
 		jf.add(p);
@@ -353,7 +348,6 @@ public class HotelFrame extends JPanel {
 		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.pack();
 		jf.setVisible(true);
-
 	}
 
 }

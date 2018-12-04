@@ -25,6 +25,12 @@ public class SignUpFrame extends JFrame {
 	private static Statement stmt = null;
 	private static ResultSet rs = null;
 
+	/**
+	 * creates frame for user to sign up registers customer to database
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public SignUpFrame() throws ClassNotFoundException, SQLException {
 		this.setName("Reserve a Room");
 		this.setSize(1000, 1000);
@@ -38,13 +44,14 @@ public class SignUpFrame extends JFrame {
 		// STEP 2: Open a connection
 		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
+		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");
 		JPanel customerName = addOptions("Name", customerEnter);
 
 		JTextField ageenter = new JTextField("");
 		JPanel customerAge = addOptions("Customer Age", ageenter);
 
-		JTextArea rslt = new JTextArea(10,10);
+		JTextArea rslt = new JTextArea(10, 10);
 		rslt.setText("Now Signing Up");
 
 		JButton submit = new JButton("Enter");
