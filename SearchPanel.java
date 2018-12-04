@@ -63,7 +63,9 @@ public class SearchPanel extends JPanel {
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		
 		JLabel pr = new JLabel("Price");
-		String[] bpri = { "0","200","400","600","800" };
+
+		String[] bpri = { "","200","400","600","800" };
+
 		JComboBox prOption = new JComboBox(bpri);
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -77,17 +79,33 @@ public class SearchPanel extends JPanel {
 				String str = "";
 				try {
 					// query to get selected hotel
-					stmt = conn.createStatement();
-					rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
-							+ changeToInt((String) poolOption.getSelectedItem()) + "%' AND  elevators LIKE '%"
-							+ changeToInt((String) elOption.getSelectedItem()) + "%' AND freeBreakfast LIKE '%"
-							+ changeToInt((String) bfOption.getSelectedItem()) + "%' AND price <" + prOption.getSelectedItem());
+
+					if (prOption.getSelectedIndex()==0) {
+						stmt = conn.createStatement();
+						rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
+								+ changeToInt((String) poolOption.getSelectedItem()) + "%' AND  elevators LIKE '%"
+								+ changeToInt((String) elOption.getSelectedItem()) + "%' AND freeBreakfast LIKE '%"
+								+ changeToInt((String) bfOption.getSelectedItem())+ "%'" );
+						while (rs.next()) {
+							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName")+ "\nPrice=" + rs.getString("price") + "\n --------------\n");
+							rslt.setText(str);
+					}
+					}
+					else {
+						stmt = conn.createStatement();
+						rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
+								+ changeToInt((String) poolOption.getSelectedItem()) + "%' AND  elevators LIKE '%"
+								+ changeToInt((String) elOption.getSelectedItem()) + "%' AND freeBreakfast LIKE '%"
+								+ changeToInt((String) bfOption.getSelectedItem()) + "%' AND price <" + prOption.getSelectedItem());
+						while (rs.next()) {
+							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName")+ "\nPrice=" + rs.getString("price") + "\n --------------\n");
+							rslt.setText(str);
+					}
 
 					// get results
 
-					while (rs.next()) {
-						str = str + ("Hotel Name=" + rs.getString("hotel.hotelName")+ "\nPrice=" + rs.getString("price") + "\n --------------\n");
-						rslt.setText(str);
+					
+
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
