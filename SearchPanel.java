@@ -33,6 +33,12 @@ public class SearchPanel extends JPanel {
 	private static Statement stmt = null;
 	private static ResultSet rs = null;
 
+	/**
+	 * creates panel for searching attributes/qualities of hotels
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public SearchPanel() throws ClassNotFoundException, SQLException {
 
 		// STEP 1: Register JDBC driver (automatically done since JDBC 4.0)
@@ -47,6 +53,7 @@ public class SearchPanel extends JPanel {
 		JLabel tf = new JLabel("    Search for a Hotel     ");
 		tf.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
+		// labels for the search fields
 		JLabel p = new JLabel("Pool?");
 		String[] pool = { "", "False", "True" };
 		JComboBox poolOption = new JComboBox(pool);
@@ -61,11 +68,9 @@ public class SearchPanel extends JPanel {
 		String[] bf = { "", "False", "True" };
 		JComboBox bfOption = new JComboBox(bf);
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-		
+
 		JLabel pr = new JLabel("Price");
-
-		String[] bpri = { "","200","400","600","800" };
-
+		String[] bpri = { "", "200", "400", "600", "800" };
 		JComboBox prOption = new JComboBox(bpri);
 		b.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -79,32 +84,35 @@ public class SearchPanel extends JPanel {
 				String str = "";
 				try {
 					// query to get selected hotel
-
-					if (prOption.getSelectedIndex()==0) {
+					if (prOption.getSelectedIndex() == 0) {
 						stmt = conn.createStatement();
-						rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
-								+ changeToInt((String) poolOption.getSelectedItem()) + "%' AND  elevators LIKE '%"
-								+ changeToInt((String) elOption.getSelectedItem()) + "%' AND freeBreakfast LIKE '%"
-								+ changeToInt((String) bfOption.getSelectedItem())+ "%'" );
+						rs = stmt.executeQuery(
+								"select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
+										+ changeToInt((String) poolOption.getSelectedItem())
+										+ "%' AND  elevators LIKE '%" + changeToInt((String) elOption.getSelectedItem())
+										+ "%' AND freeBreakfast LIKE '%"
+										+ changeToInt((String) bfOption.getSelectedItem()) + "%'");
 						while (rs.next()) {
-							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName")+ "\nPrice=" + rs.getString("price") + "\n --------------\n");
+							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName") + "\nPrice="
+									+ rs.getString("price") + "\n --------------\n");
 							rslt.setText(str);
-					}
-					}
-					else {
+						}
+					} else {
 						stmt = conn.createStatement();
-						rs = stmt.executeQuery("select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
-								+ changeToInt((String) poolOption.getSelectedItem()) + "%' AND  elevators LIKE '%"
-								+ changeToInt((String) elOption.getSelectedItem()) + "%' AND freeBreakfast LIKE '%"
-								+ changeToInt((String) bfOption.getSelectedItem()) + "%' AND price <" + prOption.getSelectedItem());
+						rs = stmt.executeQuery(
+								"select hotel.hotelName, price from hotel INNER JOIN room ON hotel.hotelName=room.hotelName where pool LIKE '%"
+										+ changeToInt((String) poolOption.getSelectedItem())
+										+ "%' AND  elevators LIKE '%" + changeToInt((String) elOption.getSelectedItem())
+										+ "%' AND freeBreakfast LIKE '%"
+										+ changeToInt((String) bfOption.getSelectedItem()) + "%' AND price <"
+										+ prOption.getSelectedItem());
 						while (rs.next()) {
-							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName")+ "\nPrice=" + rs.getString("price") + "\n --------------\n");
+							str = str + ("Hotel Name=" + rs.getString("hotel.hotelName") + "\nPrice="
+									+ rs.getString("price") + "\n --------------\n");
 							rslt.setText(str);
-					}
+						}
 
-					// get results
-
-					
+						// get results
 
 					}
 				} catch (SQLException e) {
@@ -120,6 +128,7 @@ public class SearchPanel extends JPanel {
 		});
 		enter.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
+		// searches for rooms using attributes
 		JLabel roomSearch = new JLabel("    Search for a Room     ");
 		roomSearch.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
