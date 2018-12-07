@@ -7,3 +7,4 @@
 	Ashley	Motel 6	24	127
 	Kim	Venetian	30	1120
 	Tom	Palazzo	28	2020
+	Joe	Aria	22	1118

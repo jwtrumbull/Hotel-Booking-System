@@ -216,9 +216,36 @@ public class AdminFrame extends JFrame{
 				}
 				
 			});
+			
+			// shows archived data
+			JButton archived = new JButton("Archived");
+			archived.addActionListener(new ActionListener() {
+							
+			public void actionPerformed(ActionEvent arg0) {
+					String str = ""; 
+					try {
+						stmt=conn.createStatement();
+						rs = stmt.executeQuery("Select * from archive");
+						while (rs.next()) {
+							str = str + "cID: " + rs.getInt("cid") 
+							+ "\nHotel Name: " + rs.getString("hotelName") + "\n-------------\n";
+							rslt.setText(str);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+						
+						//shows users with reservations
+
+
+			
 			hotelButtons.add(enterO);
 			hotelButtons.add(enterCC);
 			hotelButtons.add(enterR);
+			hotelButtons.add(archived);
 			
 			
 			rslt.setRows(20);

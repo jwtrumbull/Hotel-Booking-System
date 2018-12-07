@@ -108,6 +108,21 @@ public class HotelFrame extends JPanel {
 			}
 		});
 
+
+		// archives data older than 2018
+				
+		CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
+
+		cs.registerOutParameter(1, Types.INTEGER);
+		ResultSet ars = cs.executeQuery();
+				
+		while (ars.next())
+		{
+			String sql = "delete from reservation where updatedAt < '2017-01-01'";
+			Statement stmt = conn.prepareStatement(sql);
+			stmt.execute(sql);
+		} 	
+				
 		// result panel for button click for customer info
 		result.setText("Result");
 		JPanel customerName = new JPanel();
