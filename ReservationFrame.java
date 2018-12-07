@@ -85,18 +85,27 @@ public class ReservationFrame extends JFrame {
 							+ " AND hotelName='" + hotelenter.getText() + "'");
 
 					stmt = conn.createStatement();
-					stmt.executeUpdate(
-							"INSERT into RESERVATION VALUES (" + cidenter.getText() + ", '" + hotelenter.getText()
-									+ "' , '" + checkenter.getText() + "' , '" + checkoutenter.getText() + "')");
-
+					stmt.execute(
+							"DROP TRIGGER IF EXISTS updateResRoom" );
+				
+					
+					//triggers insert into reservation when room is updated (if reservation is not already existing)
+					stmt = conn.createStatement();
+					stmt.execute(
+							"CREATE TRIGGER updateResRoom "
+							+ "AFTER UPDATE on Room " 
+							+ "FOR EACH ROW "
+							+ "BEGIN IF " + cidenter.getText() + " not IN (select cID from Reservation) THEN "
+							+ "INSERT into RESERVATION VALUES (3015,'Caesars', '2018-12-25', '2018-12-30'); END IF; END;");
+			
 					// prints reservation information
 					stmt = conn.createStatement();
 					rs = stmt.executeQuery("select cID, hotelName, checkIn, checkOut from RESERVATION where cID="
 							+ (cidenter.getText()));
 					while (rs.next()) {
 						str = str + ("Customer ID=" + rs.getString("cID") + "\nHotel Name=" + rs.getString("hotelName")
-								+ "\nCheck In Date=" + rs.getString("checkIn") + "\nCheck Out Date="
-								+ rs.getInt("checkOut") + "\n------------\n");
+								+ "\nCheck In Date=" + rs.getDate("checkIn") + "\nCheck Out Date="
+								+ rs.getDate("checkOut") + "\n------------\n");
 						rslt.setText(str + "Reservation Complete");
 					}
 				} catch (SQLException e) {

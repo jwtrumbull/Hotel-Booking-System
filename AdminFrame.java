@@ -37,6 +37,7 @@ public class AdminFrame extends JFrame{
 			
 			this.setSize(1000, 1000);
 			this.setLocation(800, 0);
+			this.setTitle("Front Desk: Administration");
 			
 			// STEP 1: Register JDBC driver (automatically done since JDBC 4.0)
 			Class.forName("com.mysql.jdbc.Driver");
@@ -68,6 +69,9 @@ public class AdminFrame extends JFrame{
 					try {
 						stmt = conn.createStatement();
 						stmt.executeUpdate("update customer set hotelName ='" + hotelEnter.getText() + "', roomNumber=" + roomEnter.getText() + " where cID=" + customerEnter.getText());
+				
+						stmt = conn.createStatement();
+						stmt.executeUpdate("update room set reserved = 1 where roomNumber=" + roomEnter.getText() );
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -87,12 +91,19 @@ public class AdminFrame extends JFrame{
 					try {
 						stmt = conn.createStatement();
 						stmt.executeUpdate("update customer set hotelName = NULL, roomNumber=0 where cID =" + customerEnter.getText() );
+						
+						stmt = conn.createStatement();
+						stmt.executeUpdate("update room set reserved = 0 where roomNumber=" + roomEnter.getText() );
+						
+						stmt = conn.createStatement();
+						stmt.executeUpdate("delete from reservation where hotelName = '" + hotelEnter.getText() + "' AND cID=" + customerEnter.getText());
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 				}
+				
 				
 			});
 			

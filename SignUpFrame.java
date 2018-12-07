@@ -35,6 +35,7 @@ public class SignUpFrame extends JFrame {
 		this.setName("Reserve a Room");
 		this.setSize(1000, 1000);
 		this.setLocation(800, 0);
+		this.setTitle("Sign Up");
 
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 

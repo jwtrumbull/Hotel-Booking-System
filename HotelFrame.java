@@ -138,8 +138,8 @@ public class HotelFrame extends JPanel {
 
 					while (rs.next()) {
 						str = str + ("Reservation: \nCustomer ID=" + rs.getInt("cID") + "\nHotel Name="
-								+ rs.getString("hotelName") + "\nCheck In Date =" + rs.getInt("checkIn")
-								+ "\nCheck Out Date =" + rs.getInt("checkOut") + "\n--------------\n");
+								+ rs.getString("hotelName") + "\nCheck In Date =" + rs.getDate("checkIn")
+								+ "\nCheck Out Date =" + rs.getDate("checkOut") + "\n--------------\n");
 						result.setText(str);
 					}
 
