@@ -44,7 +44,7 @@ public class HotelFrame extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
 
 		// create hotel grid
 		this.setName("Hotel Reservation System");
@@ -206,6 +206,21 @@ public class HotelFrame extends JPanel {
 			}
 
 		});
+		
+		JButton rate = new JButton("Rate");
+		rate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					RatingFrame rater = new RatingFrame();
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		});
 
 		// panel for hotel information
 		JPanel hotelInformation = new JPanel();
@@ -273,7 +288,7 @@ public class HotelFrame extends JPanel {
 		});
 
 		RatingPanel rp = new RatingPanel();
-
+		rp.add(rate, BorderLayout.SOUTH);
 		hotelInformation.add(checkRooms);
 
 		JPanel rs = new JPanel();
@@ -289,11 +304,12 @@ public class HotelFrame extends JPanel {
 		JPanel booking = new JPanel();
 		booking.add(book);
 		booking.add(signUp);
+		
 
 		rs.add(new AdminPanel(), BorderLayout.NORTH);
 		rs.add(rightSide, BorderLayout.CENTER);
 		rs.add(booking, BorderLayout.SOUTH);
-
+		
 		SearchPanel sp = new SearchPanel();
 
 		// adds elements to JFrame (class itself)

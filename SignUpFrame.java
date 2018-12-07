@@ -43,7 +43,7 @@ public class SignUpFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
 
 		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");
@@ -88,7 +88,7 @@ public class SignUpFrame extends JFrame {
 		this.add(submit);
 		this.add(rslt);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
 		setVisible(true);
 	}
