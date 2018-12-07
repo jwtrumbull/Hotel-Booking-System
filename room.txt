@@ -1,0 +1,7 @@
+1520	Aria	1	Queen	2	4	350
+1209	Four Seasons	1	Queen	3	4	400
+1126	Orleans	1	Queen	2	4	200
+1220	Bellagio	1	King	2	4	300	
+1101	Mandalay	0	King	4	8	750
+1260	Caesars	0	King	3	6	650
+1380	Wynn	0	King	2	4	500
