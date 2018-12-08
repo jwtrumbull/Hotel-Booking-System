@@ -124,7 +124,7 @@ public class ReservationFrame extends JFrame {
 		this.add(submit);
 		this.add(rslt);
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
 		setVisible(true);
 	}
