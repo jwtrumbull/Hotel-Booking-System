@@ -49,7 +49,7 @@ public class ReservationFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 		// fields for customer info entry
 		JTextField cidenter = new JTextField(""); // cID
@@ -96,7 +96,7 @@ public class ReservationFrame extends JFrame {
 							+ "AFTER UPDATE on Room " 
 							+ "FOR EACH ROW "
 							+ "BEGIN IF " + cidenter.getText() + " not IN (select cID from Reservation) THEN "
-							+ "INSERT into RESERVATION VALUES (3015,'Caesars', '2018-12-25', '2018-12-30'); END IF; END;");
+							+ "INSERT into RESERVATION VALUES ("+roomEnter.getText() + ",'"+ hotelenter.getText()+"', '"+ checkenter.getText()+ "', '" + checkoutenter.getText()+"'); END IF; END;");
 			
 					// prints reservation information
 					stmt = conn.createStatement();
@@ -124,7 +124,7 @@ public class ReservationFrame extends JFrame {
 		this.add(submit);
 		this.add(rslt);
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
 	}
