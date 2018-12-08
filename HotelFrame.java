@@ -50,7 +50,7 @@ public class HotelFrame extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		// create hotel grid
 		this.setName("Hotel Reservation System");

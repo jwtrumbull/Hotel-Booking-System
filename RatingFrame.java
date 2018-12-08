@@ -14,11 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
-/**
- * frame for rating
- * @author anhthy, chad, jordan
- *
- */
+
 public class RatingFrame extends JFrame {
 
 	// JDBC driver name and database URL
@@ -51,7 +47,7 @@ public class RatingFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");

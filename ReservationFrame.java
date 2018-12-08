@@ -4,17 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.*;
+import java.util.*;
+import java.text.*;
 
 /**
  * frame that allows users to book hotel stay
  * 
- * @author anhthy, chad, jordan
+ * @author anhth
  *
  */
 public class ReservationFrame extends JFrame {
@@ -49,7 +56,7 @@ public class ReservationFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 		// fields for customer info entry
 		JTextField cidenter = new JTextField(""); // cID
@@ -88,7 +95,8 @@ public class ReservationFrame extends JFrame {
 					stmt.execute(
 							"DROP TRIGGER IF EXISTS updateResRoom" );
 				
-					
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYYMMdd");
+					String currentDate = (LocalDate.now().format(formatter));
 					//triggers insert into reservation when room is updated (if reservation is not already existing)
 					stmt = conn.createStatement();
 					stmt.execute(
@@ -96,7 +104,7 @@ public class ReservationFrame extends JFrame {
 							+ "AFTER UPDATE on Room " 
 							+ "FOR EACH ROW "
 							+ "BEGIN IF " + cidenter.getText() + " not IN (select cID from Reservation) THEN "
-							+ "INSERT into RESERVATION VALUES ("+roomEnter.getText() + ",'"+ hotelenter.getText()+"', '"+ checkenter.getText()+ "', '" + checkoutenter.getText()+"'); END IF; END;");
+							+ "INSERT into RESERVATION VALUES ("+ cidenter.getText() +  ",'"+ hotelenter.getText() +"', '"+checkenter.getText()+"', '"+checkoutenter.getText()+"', '"+currentDate+"'); END IF; END;");
 			
 					// prints reservation information
 					stmt = conn.createStatement();
