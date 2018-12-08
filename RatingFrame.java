@@ -82,7 +82,7 @@ public class RatingFrame extends JFrame {
 					
 					stmt = conn.createStatement();
 					rslt.setText(customerEnter.getText() + "," + customerNameEntry.getText() + "," +hotelenter.getText()+ "," + sqlDate + "," +starsenter.getText());
-					stmt.executeUpdate("INSERT INTO RATING(cID, name, hotelName, rDate, stars) VALUES(" + customerEnter.getText() + ",'" +customerNameEntry.getText()+
+					stmt.executeUpdate("INSERT INTO RATING(cID, rName, hotelName, rDate, stars) VALUES(" + customerEnter.getText() + ",'" +customerNameEntry.getText()+
 							"','"+ hotelenter.getText()+"', '"+sqlDate+"',"+Integer.parseInt(starsenter.getText()) + ")");
 
 					// prints reservation information
