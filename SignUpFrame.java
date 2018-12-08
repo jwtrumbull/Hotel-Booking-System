@@ -47,7 +47,7 @@ public class SignUpFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
 
 		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");

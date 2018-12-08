@@ -44,7 +44,7 @@ public class AdminFrame extends JFrame{
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// STEP 2: Open a connection
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
 			
 			this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 			
@@ -173,9 +173,11 @@ public class AdminFrame extends JFrame{
 					rslt.setText("Results");
 					String str = ""; 
 					try {
+						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+
 						stmt=conn.createStatement();
-						rs = stmt.executeQuery("Select cID, hotelName FROM Reservation WHERE Reservation.checkIn>CURDATE() AND EXISTS (Select * FROM Customer WHERE Customer.hotelName='" +
-						hotelOption.getSelectedItem() + "' AND Customer.cID=Reservation.cID)");
+						rs = stmt.executeQuery("Select cID, hotelName FROM reservation WHERE reservation.checkIn>="+sqlDate+" AND reservation.checkOut<="+sqlDate+" AND EXISTS (Select * FROM Customer WHERE Customer.hotelName='" +
+						hotelOption.getSelectedItem() + "' AND Customer.cID=Reservation.cID);");
 						while (rs.next()) {
 							str = str + "Customer Name: " + rs.getString("Customer.name") 
 							+ "\nHotel Name: " + rs.getString("Reservation.hotelName") + "\n-------------\n";
@@ -192,7 +194,26 @@ public class AdminFrame extends JFrame{
 				}
 				
 			});
-			
+			// shows archived data
+						JButton archived = new JButton("Archived");
+						archived.addActionListener(new ActionListener() {
+										
+						public void actionPerformed(ActionEvent arg0) {
+								String str = ""; 
+								try {
+									stmt=conn.createStatement();
+									rs = stmt.executeQuery("Select * from archive");
+									while (rs.next()) {
+										str = str + "cID: " + rs.getInt("cid") 
+										+ "\nHotel Name: " + rs.getString("hotelName") + "\n-------------\n";
+										rslt.setText(str);
+									}
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						});
 			//shows users with reservations
 			JButton enterR = new JButton("Reservations");
 			enterR.addActionListener(new ActionListener() {
@@ -220,6 +241,7 @@ public class AdminFrame extends JFrame{
 			hotelButtons.add(enterO);
 			hotelButtons.add(enterCC);
 			hotelButtons.add(enterR);
+			hotelButtons.add(archived);
 			
 			
 			rslt.setRows(20);

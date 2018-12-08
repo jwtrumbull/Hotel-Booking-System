@@ -50,7 +50,7 @@ public class HotelFrame extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
 
 		// create hotel grid
 		this.setName("Hotel Reservation System");
@@ -116,19 +116,18 @@ public class HotelFrame extends JPanel {
 
 
 		// archives data older than 2018
-				
-		/*CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
+		
+				CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
 
-		cs.registerOutParameter(1, Types.INTEGER);
-		ResultSet ars = cs.executeQuery();
-				
-		while (ars.next())
-		{
-			String sql = "delete from reservation where updatedAt < '2017-01-01'";
-			Statement stmt = conn.prepareStatement(sql);
-			stmt.execute(sql);
-		} 	*/
-				
+				cs.registerOutParameter(1, Types.INTEGER);
+				ResultSet ars = cs.executeQuery();
+						
+				while (ars.next())
+				{
+					String sql = "delete from reservation where updatedAt < '2017-01-01'";
+					Statement stmt = conn.prepareStatement(sql);
+					stmt.execute(sql);
+				} 	
 		// result panel for button click for customer info
 		result.setText("Result");
 		JPanel customerName = new JPanel();
