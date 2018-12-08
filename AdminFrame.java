@@ -44,7 +44,7 @@ public class AdminFrame extends JFrame{
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// STEP 2: Open a connection
-			conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 			
 			this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 			
@@ -136,6 +136,9 @@ public class AdminFrame extends JFrame{
 			JPanel hotelButtons = new JPanel(); 
 			
 			JTextArea rslt = new JTextArea("Results"); 
+			JScrollPane sp = new JScrollPane(rslt);
+			sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		
 			//shows number of occupants at hotel
 			JButton enterO = new JButton("Occupants");
@@ -174,13 +177,13 @@ public class AdminFrame extends JFrame{
 					String str = ""; 
 					try {
 						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-						//reservation.checkIn>="+sqlDate+" AND reservation.checkOut<="+sqlDate+" AND
+
 						stmt=conn.createStatement();
-						rs = stmt.executeQuery("Select cID,checkOut FROM reservation WHERE hotelName='" +
-						hotelOption.getSelectedItem() + "';");
+						rs = stmt.executeQuery("Select cID, hotelName FROM reservation WHERE reservation.checkIn<="+sqlDate+" AND reservation.checkOut>="+sqlDate+" AND EXISTS (Select * FROM Customer WHERE Customer.hotelName='" +
+						hotelOption.getSelectedItem() + "' AND Customer.cID=Reservation.cID);");
 						while (rs.next()) {
-							str = str + "Customer ID: " + rs.getString("cID")
-							+ "\n Departure Date: " + rs.getString("checkOut") + "\n-------------\n";
+							str = str + "Customer Name: " + rs.getString("Customer.name") 
+							+ "\nHotel Name: " + rs.getString("Reservation.hotelName") + "\n-------------\n";
 							rslt.setText(str);
 						}
 					} catch (SQLException e) {
@@ -248,7 +251,8 @@ public class AdminFrame extends JFrame{
 			
 			hotelCustomers.add(hotelB);
 			hotelCustomers.add(hotelButtons);
-			hotelCustomers.add(rslt);
+		//	hotelCustomers.add(rslt);
+			hotelCustomers.add(sp);
 			
 			
 			this.add(checkingRes);

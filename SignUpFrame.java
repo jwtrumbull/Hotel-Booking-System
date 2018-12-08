@@ -10,11 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.*;
-/**
- * allows customers to sign up to be registers as customer/guest
- * @author anhthy, chad, jordan
- *
- */
+
 public class SignUpFrame extends JFrame {
 
 	// JDBC driver name and database URL
@@ -47,7 +43,7 @@ public class SignUpFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
 		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");

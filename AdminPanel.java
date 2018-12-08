@@ -41,7 +41,7 @@ public class AdminPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		//gets admin info (allows access) 
 		JLabel textRequired = new JLabel("Password Required");
