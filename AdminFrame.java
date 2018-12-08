@@ -174,13 +174,13 @@ public class AdminFrame extends JFrame{
 					String str = ""; 
 					try {
 						java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
-
+						//reservation.checkIn>="+sqlDate+" AND reservation.checkOut<="+sqlDate+" AND
 						stmt=conn.createStatement();
-						rs = stmt.executeQuery("Select cID, hotelName FROM reservation WHERE reservation.checkIn>="+sqlDate+" AND reservation.checkOut<="+sqlDate+" AND EXISTS (Select * FROM Customer WHERE Customer.hotelName='" +
-						hotelOption.getSelectedItem() + "' AND Customer.cID=Reservation.cID);");
+						rs = stmt.executeQuery("Select cID,checkOut FROM reservation WHERE hotelName='" +
+						hotelOption.getSelectedItem() + "';");
 						while (rs.next()) {
-							str = str + "Customer Name: " + rs.getString("Customer.name") 
-							+ "\nHotel Name: " + rs.getString("Reservation.hotelName") + "\n-------------\n";
+							str = str + "Customer ID: " + rs.getString("cID")
+							+ "\n Departure Date: " + rs.getString("checkOut") + "\n-------------\n";
 							rslt.setText(str);
 						}
 					} catch (SQLException e) {
