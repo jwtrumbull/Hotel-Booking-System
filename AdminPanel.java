@@ -13,7 +13,7 @@ import javax.swing.*;
  * Administrator Panel is accessed by adminstrator with password: password 
  * allows employee access to view hotel status (occupants, customer database, etc.,)
  * this panel is the access point to get to admin frame 
- * @author anhth
+ * @author anhthy, chad, jordan
  *
  */
 public class AdminPanel extends JPanel {
@@ -41,7 +41,7 @@ public class AdminPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		//gets admin info (allows access) 
 		JLabel textRequired = new JLabel("Password Required");

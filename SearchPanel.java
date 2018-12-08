@@ -16,7 +16,7 @@ import javafx.scene.layout.Border;
 /**
  * creates panel to search for specific pool/breakfast/hotel amenities
  * 
- * @author anhth
+ * @author anhthy, chad, jordan
  *
  */
 public class SearchPanel extends JPanel {
@@ -45,7 +45,7 @@ public class SearchPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));

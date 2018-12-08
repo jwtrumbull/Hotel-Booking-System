@@ -19,7 +19,13 @@ import java.sql.Statement;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
+/**
+ * hotel frame is main panel for hotel booking system
+ * contains admin panel/hotel choices/customer searches and options
+ * contains main method for tester
+ * @author anhthy, chad, jordan
+ *
+ */
 public class HotelFrame extends JPanel {
 
 	// JDBC driver name and database URL
@@ -44,7 +50,7 @@ public class HotelFrame extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		// create hotel grid
 		this.setName("Hotel Reservation System");
@@ -111,7 +117,7 @@ public class HotelFrame extends JPanel {
 
 		// archives data older than 2018
 				
-		CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
+		/*CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
 
 		cs.registerOutParameter(1, Types.INTEGER);
 		ResultSet ars = cs.executeQuery();
@@ -121,7 +127,7 @@ public class HotelFrame extends JPanel {
 			String sql = "delete from reservation where updatedAt < '2017-01-01'";
 			Statement stmt = conn.prepareStatement(sql);
 			stmt.execute(sql);
-		} 	
+		} 	*/
 				
 		// result panel for button click for customer info
 		result.setText("Result");

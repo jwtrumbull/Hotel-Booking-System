@@ -14,7 +14,7 @@ import javax.swing.*;
 /**
  * frame that allows users to book hotel stay
  * 
- * @author anhth
+ * @author anhthy, chad, jordan
  *
  */
 public class ReservationFrame extends JFrame {
