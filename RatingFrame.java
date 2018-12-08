@@ -14,7 +14,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
-
+/**
+ * frame for rating
+ * @author anhthy, chad, jordan
+ *
+ */
 public class RatingFrame extends JFrame {
 
 	// JDBC driver name and database URL
@@ -47,7 +51,7 @@ public class RatingFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		// customer fields to enter (adding name and age)
 		JTextField customerEnter = new JTextField("");
@@ -82,7 +86,7 @@ public class RatingFrame extends JFrame {
 					
 					stmt = conn.createStatement();
 					rslt.setText(customerEnter.getText() + "," + customerNameEntry.getText() + "," +hotelenter.getText()+ "," + sqlDate + "," +starsenter.getText());
-					stmt.executeUpdate("INSERT INTO RATING(cID, name, hotelName, rDate, stars) VALUES(" + customerEnter.getText() + ",'" +customerNameEntry.getText()+
+					stmt.executeUpdate("INSERT INTO RATING(cID, rName, hotelName, rDate, stars) VALUES(" + customerEnter.getText() + ",'" +customerNameEntry.getText()+
 							"','"+ hotelenter.getText()+"', '"+sqlDate+"',"+Integer.parseInt(starsenter.getText()) + ")");
 
 					// prints reservation information

@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.*;
-
+/**
+ * allows customers to add their rating
+ * @author anhthy, chad, jordan
+ *
+ */
 public class RatingPanel extends JPanel {
 	// JDBC driver name and database URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -32,7 +36,7 @@ public class RatingPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=root");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
