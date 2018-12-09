@@ -7,3 +7,4 @@ Caesars	1	1	1
 Motel 6	0	0	1
 Venetian	1	1	1
 Palazzo	1	1	0
+Wynn	0	1	0
