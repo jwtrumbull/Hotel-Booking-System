@@ -91,6 +91,10 @@ public class HotelFrame extends JPanel {
 		JButton palazzo = this.addHotel(
 				"https://66.media.tumblr.com/9b8361614331fadcadac2e7befdc66e2/tumblr_pidl31Rn6Y1qg9zhfo5_250.png",
 				"Palazzo");
+		
+		JButton wynn = this.addHotel(
+				"https://66.media.tumblr.com/8ee7388ce303eef9921dd8c09c7c6b1d/tumblr_pjfzuu8ryK1qg9zhfo1_250.png",
+				"Wynn");*/
 
 		hotelGrid.add(aria);
 		hotelGrid.add(FS);
@@ -101,6 +105,7 @@ public class HotelFrame extends JPanel {
 		hotelGrid.add(motel6);
 		hotelGrid.add(venetian);
 		hotelGrid.add(palazzo);
+		hotelGrid.add(wynn);
 
 		// creates panel for customer portal or customer info
 		JTextField userName = new JTextField();
@@ -119,7 +124,7 @@ public class HotelFrame extends JPanel {
 		
 				CallableStatement cs = conn.prepareCall("{CALL archiveData(?)}");
 
-				cs.registerOutParameter(1, Types.INTEGER);
+				cs.registerOutParameter(1, java.sql.Types.INTEGER);
 				ResultSet ars = cs.executeQuery();
 						
 				while (ars.next())
