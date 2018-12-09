@@ -1,4 +1,4 @@
-package hotel;
+
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -46,7 +46,7 @@ public class AdminFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=default$");
 
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -130,7 +130,7 @@ public class AdminFrame extends JFrame {
 		// creates dropdown for hotel options
 		JLabel h = new JLabel("Hotel");
 		String[] hotels = { "Aria", "Four Seasons", "Orleans", "Bellagio", "Mandalay", "Caesars", "Motel 6", "Venetian",
-				"Palazzo" };
+				"Palazzo", "Wynn" };
 		JComboBox hotelOption = new JComboBox(hotels);
 		h.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
