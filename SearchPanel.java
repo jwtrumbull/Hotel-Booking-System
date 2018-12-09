@@ -1,4 +1,4 @@
-
+package hotel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +27,7 @@ public class SearchPanel extends JPanel {
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "password";
+	static final String PASS = "root";
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -45,7 +45,7 @@ public class SearchPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));

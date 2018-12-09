@@ -1,4 +1,4 @@
-
+package hotel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +23,7 @@ public class AdminPanel extends JPanel {
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "password";
+	static final String PASS = "root";
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -41,7 +41,7 @@ public class AdminPanel extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
 		//gets admin info (allows access) 
 		JLabel textRequired = new JLabel("Password Required");

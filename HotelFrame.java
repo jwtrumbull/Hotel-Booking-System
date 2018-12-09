@@ -1,4 +1,4 @@
-
+package hotel;
 
 import java.sql.*;
 
@@ -16,6 +16,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,8 +34,8 @@ public class HotelFrame extends JPanel {
 	static final String DB_URL = "jdbc:mysql://localhost/hbs";
 
 	// Database credentials
-	static final String USER = "root";
-	static final String PASS = "password";
+	static  String USER;
+	static  String PASS;
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -50,7 +51,7 @@ public class HotelFrame extends JPanel {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=password");
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
 		// create hotel grid
 		this.setName("Hotel Reservation System");
@@ -94,7 +95,7 @@ public class HotelFrame extends JPanel {
 		
 		JButton wynn = this.addHotel(
 				"https://66.media.tumblr.com/8ee7388ce303eef9921dd8c09c7c6b1d/tumblr_pjfzuu8ryK1qg9zhfo1_250.png",
-				"Wynn");*/
+				"Wynn");
 
 		hotelGrid.add(aria);
 		hotelGrid.add(FS);
@@ -382,6 +383,12 @@ public class HotelFrame extends JPanel {
 
 	public static void main(String[] args)
 			throws MalformedURLException, IOException, SQLException, ClassNotFoundException {
+		System.out.println("Please enter your mySQL username.");
+		Scanner scan = new Scanner(System.in);
+		//String s = scan.next();
+		USER = scan.nextLine();
+		System.out.println("Please enter your mySQL password.");
+		PASS = scan.nextLine();
 		JFrame jf = new JFrame(); 
 		HotelFrame p = new HotelFrame();
 		jf.add(p);

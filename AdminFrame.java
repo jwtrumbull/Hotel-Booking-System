@@ -1,4 +1,4 @@
-
+package hotel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -24,7 +24,7 @@ public class AdminFrame extends JFrame {
 
 	// Database credentials
 	static final String USER = "root";
-	static final String PASS = "password";
+	static final String PASS = "root";
 
 	private static Connection conn = null;
 	private static Statement stmt = null;
@@ -46,7 +46,7 @@ public class AdminFrame extends JFrame {
 		Class.forName("com.mysql.jdbc.Driver");
 
 		// STEP 2: Open a connection
-		conn = DriverManager.getConnection("jdbc:mysql://localhost/hbs?user=root&password=default$");
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
